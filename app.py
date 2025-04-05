@@ -194,4 +194,4 @@ def recommend_books_route():
 
 # Run the app
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
