@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Student Form</title>
+</head>
+<body>
+    <h1>View Student Account</h1>
+    <form action="{{ url_for('view_student_route') }}" method="POST">
+        <label for="student_id">Student ID:</label>
+        <input type="text" name="student_id" required>
+        <button type="submit">Proceed</button>
+    </form>
+
+    {% if message %}
+        <p style="color:red;"><strong>{{ message }}</strong></p>
+    {% endif %}
+
+    <!-- Home Button -->
+    <form action="{{ url_for('home') }}" method="get">
+        <button type="submit" style="margin-top: 10px;">Home</button>
+    </form>
+</body>
+</html>

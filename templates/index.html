@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library System</title>
+</head>
+<body>
+    <h1>Welcome to the Library System</h1>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('add_student_route') }}">Add Student</a></li>
+            <li><a href="{{ url_for('view_student_route') }}">View Student Account</a></li>
+            <li><a href="{{ url_for('recommend_books_route') }}">Get Book Recommendations</a></li>
+            <li><a href="{{ url_for('borrow_book_route') }}">Borrow a Book</a></li>
+            <li><a href="{{ url_for('return_book_route') }}">Return a Book</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student</title>
+</head>
+<body>    
+    <h1>Add a New Student</h1>
+    <form action="{{ url_for('add_student_route') }}" method="post">
+        <label for="student_id">Student ID:</label>
+        <input type="text" name="student_id" required><br>
+
+        <label for="preferred_genres">Preferred Genres (comma-separated):</label>
+        <input type="text" name="preferred_genres" required>
+        <p>Available Genres: Biography, Business, Fantasy, General Fiction, History, Horror, Mystery, Philosophy, Psychology,
+            Romance, Self-Help, Science Fiction, Thriller</p>
+        <br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if message %}
+    <p style="color:red;"><strong>{{ message }}</strong></p>
+    {% endif %}
+
+
+    {% if recommendations is not none and not recommendations.empty %}
+    <h2>Recommended Books</h2>
+    <ol>
+        {% for index, row in recommendations.iterrows() %}
+        <li>{{ row.title }} by {{ row.authors }} (Publisher: {{ row.publisher }}, Rating: {{ row.average_rating }})</li>
+        {% endfor %}
+    </ol>
+    {% endif %}
+
+    <!-- Home Button -->
+    <form action="{{ url_for('home') }}" method="get">
+        <button type="submit" style="margin-top: 10px;">Home</button>
+    </form>
+</body>
+</html>

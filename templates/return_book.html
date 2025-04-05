@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Book</title>
+</head>
+<body>
+    <h1>Return a Book</h1>
+    <p><strong>Student ID:</strong> {{ student_id }}</p>
+
+    {% if message %}
+        <p style="color:green;"><strong>{{ message }}</strong></p>
+    {% endif %}
+
+    {% if borrowed_books %}
+        <p><strong>Borrowed Books:</strong></p>
+        <ul>
+            {% for book in borrowed_books %}
+                <li>{{ book }}</li>
+            {% endfor %}
+        </ul>
+
+        <form method="POST">
+            <input type="hidden" name="student_id" value="{{ student_id }}">
+            <label for="book_title">Enter Book Title to Return:</label>
+            <input type="text" name="book_title" required>
+            <button type="submit">Return Book</button>
+        </form>
+    {% else %}
+        <p>No borrowed books.</p>
+    {% endif %}
+
+    <!-- Home Button -->
+    <form action="{{ url_for('home') }}" method="get">
+        <button type="submit" style="margin-top: 10px;">Home</button>
+    </form>
+</body>
+</html>

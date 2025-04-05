@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Account Page</title>
+</head>
+<body>
+    <h1>Student Account</h1>
+    <p><strong>Student ID:</strong> {{ student_id }}</p>
+    <h2>Preferred Genres:</h2>
+    <ul>
+        {% for genre in student['preferred_genres'] %}
+            <li>{{ genre }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Borrowed Books:</h2>
+    <ul>
+        {% for book in student['borrowed_books'] %}
+            <li>{{ book }}</li>
+        {% endfor %}
+    </ul>
+
+    {% if message %}
+        <p style="color:red;"><strong>{{ message }}</strong></p>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('delete_student_route') }}">
+        <input type="text" name="student_id" value="{{ student_id }}" required>
+        <button type="submit">Delete Account</button>
+    </form>
+
+    <!-- Update Student Button -->
+    <form action="{{ url_for('update_student_form', student_id=student_id) }}" method="get">
+        <button type="submit" style="margin-top: 10px;">Update Student Info</button>
+    </form>
+
+    <!-- Home Button -->
+    <form action="{{ url_for('home') }}" method="get">
+        <button type="submit" style="margin-top: 10px;">Home</button>
+    </form>
+</form>
+</body>
+</html>
