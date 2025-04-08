@@ -35,19 +35,46 @@ def recommend_books(student_id):
     recommended_books = pd.concat(recommendations)  # Concatenate the recommended books and return
     return recommended_books[["title", "authors", "category", "average_rating", "publication_date", "publisher"]]
 
-# Function for borrowing a book
+def clean_string(s):    # Function to clean and normalize strings
+    return (
+        str(s)
+        .strip()
+        .lower()
+        .replace("–", "-")
+        .replace("—", "-")
+        .replace("’", "'")
+        .replace("“", '"')
+        .replace("”", '"')
+        .replace("\xa0", " ")  # non-breaking space
+        .replace("  ", " ")  # double spaces
+    )
+
+# Function to borrow a book
 def borrow_book(student_id, book_title):
-    if student_id in students:  # Check if student exists
-        if book_title in books_df["title"].values:  # Check if the book exists in the dataset
-            if len(students[student_id]["borrowed_books"]) < MAX_BORROW_LIMIT:  # Check borrowing limit
-                students[student_id]["borrowed_books"].append(book_title)   # Add the book to the student's borrowed list
-                return f'"{book_title}" borrowed successfully.'
-            else:
-                return "Borrowing limit reached! Return a book before borrowing a new one."
-        else:
-            return "Book not found in the system!"
-    else:
+    if student_id not in students:
         return "Student not found!"
+    
+    normalized_input = clean_string(book_title) # Normalize the input book title
+    print("User input:", normalized_input)
+
+    matched_title = None    # Variable to store matched title
+    for title in books_df["title"]: # Iterate through the book titles
+        normalized_title = clean_string(title)
+        if normalized_title == normalized_input:
+            matched_title = title   # If a match is found, store the title
+            print("MATCHED:", matched_title)
+            break
+        else:
+            print("NO MATCH:", normalized_title)
+
+    if matched_title:   # If a match is found
+        if len(students[student_id]["borrowed_books"]) < MAX_BORROW_LIMIT:
+            students[student_id]["borrowed_books"].append(matched_title)    # Add the book to the borrowed list
+            return f'"{matched_title}" borrowed successfully.'
+        else:
+            return "Borrowing limit reached! Return a book before borrowing a new one."
+    else:
+        return "Book not found in the system!"
 
 # Function for returning a book
 def return_book(student_id, book_title):
@@ -92,19 +119,7 @@ def add_student_route():
         return render_template('add_student.html', recommendations=recommendations)
 
     return render_template('add_student.html', recommendations=pd.DataFrame())
-
-
-# # Route for adding a student
-# @app.route('/add_student', methods = ['GET', 'POST'])
-# def add_student_route():
-#     if request.method == 'POST':    # Check if the form is submitted
-#         student_id = request.form['student_id'] # Get the student ID from the form
-#         preferred_genres = request.form['preferred_genres'].split(',')  # Split the preferred genres by comma
-#         students[student_id] = {"preferred_genres": preferred_genres, "borrowed_books": []} # Store student data in the dictionary
-#         recommendations = recommend_books(student_id)  # Get initial recommendations
-#         return render_template('add_student.html', recommendations = recommendations)  # Pass recommendations to template
-#     return render_template('add_student.html', recommendations = pd.DataFrame())    # Render the add student page with an empty recommendations DataFrame
-    
+  
 # Route for viewing a student account
 @app.route('/view_student', methods = ['GET', 'POST'])
 def view_student_route():
