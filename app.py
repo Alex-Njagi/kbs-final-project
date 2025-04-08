@@ -1,6 +1,7 @@
 # To run the program enter the command: python app.py or python3 app.py in the terminal
 from flask import Flask, render_template, request, redirect, url_for
 import pandas as pd
+import re
 import gdown
 from sklearn.preprocessing import LabelEncoder
 
@@ -76,16 +77,35 @@ def borrow_book(student_id, book_title):
     else:
         return "Book not found in the system!"
 
-# Function for returning a book
+# Section for returning a book
+def normalize_title(title):   # Function to normalize book titles
+    return re.sub(r'\s+', ' ', title.strip().lower())   # Normalize the title by removing extra spaces and converting to lowercase
+# Function to return a book
 def return_book(student_id, book_title):
-    if student_id in students:  # Check if student exists
-        if book_title in students[student_id]["borrowed_books"]:    # Check if the book is in the borrowed list
-            students[student_id]["borrowed_books"].remove(book_title)   # Remove the book from the borrowed list
-            return f"{book_title} returned successfully."
-        else:
-            return "This book is not in the borrowed books list!"
-    else:
+    if student_id not in students:
+        print("Student not found:", student_id)
         return "Student not found!"
+
+    normalized_input = normalize_title(book_title)  # Normalize the input book title
+    print("Normalized return input:", normalized_input)
+
+    print("Borrowed books (raw):", students[student_id]["borrowed_books"])
+
+    matched_title = None
+    for borrowed in students[student_id]["borrowed_books"]: # Iterate through borrowed books
+        print("Checking against borrowed:", normalize_title(borrowed))
+        if normalize_title(borrowed) == normalized_input:
+            matched_title = borrowed    # If a match is found, store the title
+            break
+
+    if matched_title:   # If a match is found
+        students[student_id]["borrowed_books"].remove(matched_title)    # Remove the book from the borrowed list
+        print("Book returned:", matched_title)
+        return f'"{matched_title}" returned successfully.'
+    else:
+        print("No match found for:", normalized_input)
+        return "This book is not in the borrowed books list!"  
+    
 
 # ROUTING SECTION
 # Route for home page
