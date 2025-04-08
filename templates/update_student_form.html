@@ -1,34 +1,51 @@
-<!-- templates/update_student_form.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Update Student Info</title>
-</head>
-<body>
-    <h1>Update Student Information for {{ student_id }}</h1>
-    <form method="POST" action="{{ url_for('update_student_form', student_id = student_id) }}">
-        <label for="preferred_genres">Preferred Genres (comma-separated):</label>
-        <input type="text" name="preferred_genres" value="{{ ', '.join(student['preferred_genres']) }}" required>
-        <p>Available Genres: Biography, Business, Fantasy, General Fiction, History, Horror, Mystery, Philosophy, Psychology,
-            Romance, Self-Help, Science Fiction, Thriller</p>
-        <br>
+{% extends "index.html" %}
 
-        <button type="submit">Update Info</button>
-    </form>
+{% block title %}Update Student Info{% endblock %}
 
-    {% if message %}
-        <p style="color:green;"><strong>{{ message }}</strong></p>
-    {% endif %}
-
-    <!-- Back Button -->
-    <form action="{{ url_for('view_student_route') }}" method="post">
-        <input type="hidden" name="student_id" value="{{ student_id }}">
-        <button type="submit" style="margin-top: 10px;">Back to Account</button>
-    </form>
-
-    <form action="{{ url_for('home') }}" method="get">
-        <button type="submit" style="margin-top: 10px;">Home</button>
-    </form>
-</body>
-</html>
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0">Update Student Information</h2>
+            </div>
+            <div class="card-body">
+                <h4 class="mb-4">Student ID: {{ student_id }}</h4>
+                
+                <form method="POST" action="{{ url_for('update_student_form', student_id = student_id) }}">
+                    <div class="mb-3">
+                        <label for="preferred_genres" class="form-label">Preferred Genres</label>
+                        <input type="text" class="form-control" id="preferred_genres" name="preferred_genres" 
+                               value="{{ ', '.join(student['preferred_genres']) }}" required>
+                        <div class="form-text">
+                            Available Genres: 
+                            <span class="badge genre-badge">Biography</span>
+                            <span class="badge genre-badge">Business</span>
+                            <span class="badge genre-badge">Fantasy</span>
+                            <span class="badge genre-badge">General Fiction</span>
+                            <span class="badge genre-badge">History</span>
+                            <span class="badge genre-badge">Horror</span>
+                            <span class="badge genre-badge">Mystery</span>
+                            <span class="badge genre-badge">Philosophy</span>
+                            <span class="badge genre-badge">Psychology</span>
+                            <span class="badge genre-badge">Romance</span>
+                            <span class="badge genre-badge">Self-Help</span>
+                            <span class="badge genre-badge">Science Fiction</span>
+                            <span class="badge genre-badge">Thriller</span>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Update Info</button>
+                </form>
+                
+                <div class="mt-3">
+                    <form action="{{ url_for('view_student_route') }}" method="post">
+                        <input type="hidden" name="student_id" value="{{ student_id }}">
+                        <button type="submit" class="btn btn-secondary">Back to Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

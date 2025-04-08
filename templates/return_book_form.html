@@ -1,25 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Return Book Form</title>
-</head>
-<body>
-    {% if message %}
-    <p style="color:red;"><strong>{{ message }}</strong></p>
-    {% endif %}
+{% extends "index.html" %}
 
-    <h1>Return a Book</h1>
-    <form action="{{ url_for('return_book_route') }}" method="POST">
-        <label for="student_id">Student ID:</label>
-        <input type="text" name="student_id" required>
-        <button type="submit">Proceed</button>
-    </form>
+{% block title %}Return Book{% endblock %}
 
-    <!-- Home Button -->
-    <form action="{{ url_for('home') }}" method="get">
-        <button type="submit" style="margin-top: 10px;">Home</button>
-    </form>
-</body>
-</html>
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0">Return a Book</h2>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('return_book_route') }}" method="POST">
+                    <div class="mb-3">
+                        <label for="student_id" class="form-label">Student ID</label>
+                        <input type="text" class="form-control" id="student_id" name="student_id" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Proceed</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

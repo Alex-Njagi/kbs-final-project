@@ -1,39 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Return Book</title>
-</head>
-<body>
-    <h1>Return a Book</h1>
-    <p><strong>Student ID:</strong> {{ student_id }}</p>
+{% extends "index.html" %}
 
-    {% if message %}
-        <p style="color:green;"><strong>{{ message }}</strong></p>
-    {% endif %}
+{% block title %}Return Book{% endblock %}
 
-    {% if borrowed_books %}
-        <p><strong>Borrowed Books:</strong></p>
-        <ul>
-            {% for book in borrowed_books %}
-                <li>{{ book }}</li>
-            {% endfor %}
-        </ul>
-
-        <form method="POST">
-            <input type="hidden" name="student_id" value="{{ student_id }}">
-            <label for="book_title">Enter Book Title to Return:</label>
-            <input type="text" name="book_title" required>
-            <button type="submit">Return Book</button>
-        </form>
-    {% else %}
-        <p>No borrowed books.</p>
-    {% endif %}
-
-    <!-- Home Button -->
-    <form action="{{ url_for('home') }}" method="get">
-        <button type="submit" style="margin-top: 10px;">Home</button>
-    </form>
-</body>
-</html>
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0">Return a Book</h2>
+            </div>
+            <div class="card-body">
+                <h4>Student ID: {{ student_id }}</h4>
+                
+                {% if borrowed_books %}
+                <div class="mb-4">
+                    <h5>Currently Borrowed Books:</h5>
+                    <div class="list-group">
+                        {% for book in borrowed_books %}
+                        <div class="list-group-item">{{ book }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <form method="POST">
+                    <input type="hidden" name="student_id" value="{{ student_id }}">
+                    <div class="mb-3">
+                        <label for="book_title" class="form-label">Enter Book Title to Return</label>
+                        <input type="text" class="form-control" id="book_title" name="book_title" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Return Book</button>
+                </form>
+                {% else %}
+                <div class="alert alert-info">
+                    No books currently borrowed.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
