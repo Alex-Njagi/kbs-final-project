@@ -185,14 +185,22 @@ def delete_student_route():
 @app.route('/update_student/<student_id>', methods = ['GET', 'POST'])
 def update_student_form(student_id):
     if student_id not in students:
-        return "Student not found!"
+        return "Student not found!"    
     if request.method == 'POST':
-        new_genres = request.form['preferred_genres']
-        genre_list = [genre.strip() for genre in new_genres.split(',')]
+        new_genres = request.form['preferred_genres']   # Get the new preferred genres from the form
+        genre_list = [genre.strip() for genre in new_genres.split(',')] # Split and clean the genres
+                # Validate genres
+        invalid_genres = [genre for genre in genre_list if genre not in ALLOWED_GENRES] # Check for invalid genres
+        if invalid_genres:
+            message = f"The following genres are invalid: {', '.join(invalid_genres)}"
+            return render_template('update_student_form.html', student = students[student_id], student_id = student_id, message = message)
+        # Save valid genres
         students[student_id]['preferred_genres'] = genre_list
         message = "Student information updated successfully!"
         return render_template('update_student_form.html', student = students[student_id], student_id = student_id, message = message)
+    
     return render_template('update_student_form.html', student = students[student_id], student_id = student_id)
+
 
 # Route for borrowing a book
 @app.route('/borrow_book', methods = ['GET', 'POST'])
