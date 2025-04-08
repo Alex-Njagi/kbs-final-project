@@ -1,4 +1,7 @@
-# To run the program enter the command: python app.py or python3 app.py in the terminal
+# To run the program enter the command in the terminal:
+# python app.py or python3 app.py
+# If not working, install the following packages:
+# pip install Flask pandas gdown scikit-learn openpyxl
 from flask import Flask, render_template, request, redirect, url_for
 import pandas as pd
 import re
@@ -7,12 +10,18 @@ from sklearn.preprocessing import LabelEncoder
 
 app = Flask(__name__)
 
-# Importing and processing dataset
+# Import and process dataset
 file_id = "1YZpUyMz7ZWKx3tPS-j2kLijCuVPDsjl0"
 gdown.download(f"https://drive.google.com/uc?export=download&id={file_id}", 'books_with_genre.xlsx', quiet=False)
 books_xlsx_path = "books_with_genre.xlsx"
 books_df = pd.read_excel(books_xlsx_path)
+
+# Clean column names
 books_df.columns = books_df.columns.str.strip()
+
+# Force all titles to be strings (very important)
+books_df["title"] = books_df["title"].astype(str).str.strip()
+
 
 # Encode categorical variables
 label_encoder = LabelEncoder()  # Initialize label encoder
@@ -20,6 +29,7 @@ books_df["category"] = label_encoder.fit_transform(books_df["category"]) # Encod
 
 students = {}   # Dictionary to store student data
 MAX_BORROW_LIMIT = 3    # Maximum number of books a student can borrow
+
 
 # Function to recommend books based on student preferences with a more even split across genres
 def recommend_books(student_id):
@@ -33,7 +43,10 @@ def recommend_books(student_id):
         sampled_books = category_books.sample(min(num_books_per_category, len(category_books))) # Sample books from the category
         recommendations.append(sampled_books)   # Create recommended list from sampled books
     
-    recommended_books = pd.concat(recommendations)  # Concatenate the recommended books and return
+    recommended_books = pd.concat(recommendations)  # Concatenate the recommended books
+    
+    # Decode the category labels back into the original genre names
+    recommended_books['category'] = label_encoder.inverse_transform(recommended_books['category'])    
     return recommended_books[["title", "authors", "category", "average_rating", "publication_date", "publisher"]]
 
 def clean_string(s):    # Function to clean and normalize strings
@@ -105,7 +118,7 @@ def return_book(student_id, book_title):
     else:
         print("No match found for:", normalized_input)
         return "This book is not in the borrowed books list!"  
-    
+
 
 # ROUTING SECTION
 # Route for home page
@@ -125,21 +138,17 @@ def add_student_route():
         student_id = request.form['student_id']
         raw_genres = request.form['preferred_genres'].split(',')
         preferred_genres = [genre.strip() for genre in raw_genres]
-
         # Validate genres
-        invalid_genres = [genre for genre in preferred_genres if genre not in ALLOWED_GENRES]
-        
+        invalid_genres = [genre for genre in preferred_genres if genre not in ALLOWED_GENRES]       
         if invalid_genres:
             message = f"The following genres are invalid: {', '.join(invalid_genres)}"
             return render_template('add_student.html', recommendations=pd.DataFrame(), message=message)
-
         # Save valid data
         students[student_id] = {"preferred_genres": preferred_genres, "borrowed_books": []}
         recommendations = recommend_books(student_id)
         return render_template('add_student.html', recommendations=recommendations)
-
     return render_template('add_student.html', recommendations=pd.DataFrame())
-  
+    
 # Route for viewing a student account
 @app.route('/view_student', methods = ['GET', 'POST'])
 def view_student_route():
