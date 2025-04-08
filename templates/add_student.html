@@ -2,6 +2,10 @@
 
 {% block title %}Add Student{% endblock %}
 
+{% if message %}
+    <p style="color:red;"><strong>{{ message }}</strong></p>
+{% endif %}
+
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-8">
