@@ -1,42 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Student</title>
-</head>
-<body>    
-    <h1>Add a New Student</h1>
-    <form action="{{ url_for('add_student_route') }}" method="post">
-        <label for="student_id">Student ID:</label>
-        <input type="text" name="student_id" required><br>
+{% extends "index.html" %}
 
-        <label for="preferred_genres">Preferred Genres (comma-separated):</label>
-        <input type="text" name="preferred_genres" required>
-        <p>Available Genres: Biography, Business, Fantasy, General Fiction, History, Horror, Mystery, Philosophy, Psychology,
-            Romance, Self-Help, Science Fiction, Thriller</p>
-        <br>
+{% block title %}Add Student{% endblock %}
 
-        <button type="submit">Submit</button>
-    </form>
-
-    {% if message %}
-    <p style="color:red;"><strong>{{ message }}</strong></p>
-    {% endif %}
-
-
-    {% if recommendations is not none and not recommendations.empty %}
-    <h2>Recommended Books</h2>
-    <ol>
-        {% for index, row in recommendations.iterrows() %}
-        <li>{{ row.title }} by {{ row.authors }} (Publisher: {{ row.publisher }}, Rating: {{ row.average_rating }})</li>
-        {% endfor %}
-    </ol>
-    {% endif %}
-
-    <!-- Home Button -->
-    <form action="{{ url_for('home') }}" method="get">
-        <button type="submit" style="margin-top: 10px;">Home</button>
-    </form>
-</body>
-</html>
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0">Add a New Student</h2>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('add_student_route') }}" method="post">
+                    <div class="mb-3">
+                        <label for="student_id" class="form-label">Student ID</label>
+                        <input type="text" class="form-control" id="student_id" name="student_id" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="preferred_genres" class="form-label">Preferred Genres</label>
+                        <input type="text" class="form-control" id="preferred_genres" name="preferred_genres" 
+                               placeholder="Enter genres separated by commas" required>
+                        <div class="form-text">
+                            Available Genres: 
+                            <span class="badge genre-badge">Biography</span>
+                            <span class="badge genre-badge">Business</span>
+                            <span class="badge genre-badge">Fantasy</span>
+                            <span class="badge genre-badge">General Fiction</span>
+                            <span class="badge genre-badge">History</span>
+                            <span class="badge genre-badge">Horror</span>
+                            <span class="badge genre-badge">Mystery</span>
+                            <span class="badge genre-badge">Philosophy</span>
+                            <span class="badge genre-badge">Psychology</span>
+                            <span class="badge genre-badge">Romance</span>
+                            <span class="badge genre-badge">Self-Help</span>
+                            <span class="badge genre-badge">Science Fiction</span>
+                            <span class="badge genre-badge">Thriller</span>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                
+                {% if recommendations is not none and not recommendations.empty %}
+                <div class="mt-4">
+                    <h3>Recommended Books</h3>
+                    <ol class="list-group list-group-numbered">
+                        {% for index, row in recommendations.iterrows() %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">{{ row.title }}</div>
+                                by {{ row.authors }}<br>
+                                <small>Publisher: {{ row.publisher }} | Rating: {{ row.average_rating }}</small>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

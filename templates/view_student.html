@@ -1,44 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Account Page</title>
-</head>
-<body>
-    <h1>Student Account</h1>
-    <p><strong>Student ID:</strong> {{ student_id }}</p>
-    <h2>Preferred Genres:</h2>
-    <ul>
-        {% for genre in student['preferred_genres'] %}
-            <li>{{ genre }}</li>
-        {% endfor %}
-    </ul>
-    <h2>Borrowed Books:</h2>
-    <ul>
-        {% for book in student['borrowed_books'] %}
-            <li>{{ book }}</li>
-        {% endfor %}
-    </ul>
+{% extends "index.html" %}
 
-    {% if message %}
-        <p style="color:red;"><strong>{{ message }}</strong></p>
-    {% endif %}
+{% block title %}Student Account{% endblock %}
 
-    <form method="POST" action="{{ url_for('delete_student_route') }}">
-        <input type="text" name="student_id" value="{{ student_id }}" required>
-        <button type="submit">Delete Account</button>
-    </form>
-
-    <!-- Update Student Button -->
-    <form action="{{ url_for('update_student_form', student_id=student_id) }}" method="get">
-        <button type="submit" style="margin-top: 10px;">Update Student Info</button>
-    </form>
-
-    <!-- Home Button -->
-    <form action="{{ url_for('home') }}" method="get">
-        <button type="submit" style="margin-top: 10px;">Home</button>
-    </form>
-</form>
-</body>
-</html>
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0">Student Account</h2>
+            </div>
+            <div class="card-body">
+                <h4 class="mb-4">Student ID: {{ student_id }}</h4>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">Preferred Genres</h5>
+                            </div>
+                            <div class="card-body">
+                                {% for genre in student['preferred_genres'] %}
+                                <span class="badge genre-badge">{{ genre }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">Borrowed Books</h5>
+                            </div>
+                            <div class="card-body">
+                                {% if student['borrowed_books'] %}
+                                <ul class="list-group">
+                                    {% for book in student['borrowed_books'] %}
+                                    <li class="list-group-item">{{ book }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                <p class="text-muted">No books currently borrowed</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <form action="{{ url_for('update_student_form', student_id=student_id) }}" method="get">
+                        <button type="submit" class="btn btn-primary me-md-2">Update Student Info</button>
+                    </form>
+                    
+                    <form method="POST" action="{{ url_for('delete_student_route') }}" onsubmit="return confirm('Are you sure you want to delete this account?');">
+                        <input type="hidden" name="student_id" value="{{ student_id }}">
+                        <button type="submit" class="btn btn-danger">Delete Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
