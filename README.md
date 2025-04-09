@@ -1,7 +1,7 @@
 # LIBRARY BOOK RECOMMENDATION SYSTEM
 
 ## A. Project Overview
-This project is a library management knowledge based system that recommends books to students based on their preferences. In addition to providing personalised book recommendations, it allows students to create and manage their accounts as well as borrow and return books. As a knowledge based system, it incorporates machine learning techniques for book recommendation based on past reading preferences and current interests.
+This project is a library management knowledge based system that recommends books to students based on their preferences. In addition to providing personalised book recommendations, it allows students to create and manage their accounts as well as borrow and return books. As a knowledge based system, it incorporates machine learning techniques for book recommendation based on past reading preferences and current interests. The system also features a comprehensive and intuitive web user interface made using Flask that allows users to carry out said tasks.
 
 ## B. Technologies Used
 The following technologies were used to develop and test the system over a development period of 4 weeks:
