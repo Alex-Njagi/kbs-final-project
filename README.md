@@ -15,12 +15,12 @@ The following technologies were used to develop and test the system over a devel
 
 ## C. System Features
 The system boasts the following features in an effort to effectively meet its intended objectives:
-- **Add Student Profiles**: Create student profiles with preferred genres.
-- **Account Management**: Students can view and update their respective accounts to maintain their collections.
-- **Book Recommendations**: Suggest books based on preferred genres the latter of which can be updated.
-- **Borrowing Books**: Students are allowed to borrow up to 3 books at a time.
-- **Returning Books**: Students are able to return any books they have borrowed.
-- **Dynamic Recommendations**: Books are recommended evenly across genres and grouped by category.
+•⁠  ⁠*Add Student Profiles*: Create student profiles with preferred genres and receive suggestions books based on preferred genres the latter of which can be updated.
+•⁠  ⁠*Account Management*: Students can view and update their respective accounts to maintain their collections.
+•⁠  ⁠*Dynamic Recommendations*: Books are recommended evenly across genres and grouped by category.
+•⁠  ⁠*Borrowing Books*: Students are allowed to borrow up to 3 books at a time.
+•⁠  ⁠*Returning Books*: Students are able to return any books they have borrowed.
+•⁠  ⁠*Comprehensive Interface*: Students are able to freely browse and access the system's pool of features.
 
 ## D. How It Works
 1. **Student Preferences**: Students input their student ID as well as their preferred genres.
