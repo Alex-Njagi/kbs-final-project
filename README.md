@@ -49,28 +49,12 @@ A simple Flask based web interface allows users to:
 •⁠  ⁠View book recommendations.
 
 ## F. Setup Instructions
-1. Clone or download this repository.
-2. Ensure you have the required libraries installed:
-<code>pip install pandas scikit-learn gdown</code>
-<code>python your_script_name.py</code>
-
-Once you the program is launched, you’ll be presented with a simple menu which the user can interact with the system with:
-###    Library System Menu:
-    1. Add Student
-    2. View Student Account
-    3. Update Student Preferences
-    4. Borrow Book
-    5. Get Book Recommendations
-    6. Return Book
-    7. Delete Student Account
-    8. Exit
+To access the system, simply enter the following url in your browser:
+<code>https://kbs-project-app.onrender.com</code>
 
 ## G. Future Enhancements
-- **GUI**: Develop a graphical user interface for easier student interaction.
-- **Advanced Book Recommendations**: Incorporate more complex recommendation algorithms (e.g., collaborative filtering).
-- **Real-time Integration**: Integrate the system with an actual library database.
-
-
+•⁠  ⁠*Advanced Book Recommendations*: Incorporate more complex recommendation algorithms (e.g., collaborative filtering).
+•⁠  ⁠*Real-time Integration*: Integrate the system with an actual library database.
 
 ## H. Authors' Credit
 This system was developed by Alex Njagi, Dorcas Mwihaki, Cynthia Yator and Caroline Oriama.
