@@ -5,12 +5,13 @@ This project is a library management knowledge based system that recommends book
 
 ## B. Technologies Used
 The following technologies were used to develop and test the system over a development period of 4 weeks:
-- **Python**: The primary programming language.
-- **Pandas**: For handling and analysing the book dataset.
-- **scikit-learn**: For encoding categorical data.
-- **gdown**: To download the dataset from Google Drive.
-- **Excel**: For dataset storage.
-- **Flask**: For the web interface.
+•⁠  ⁠*Pandas*: For handling and analysing the book dataset.
+•⁠  ⁠*Python*: The primary programming language.
+•⁠  ⁠*Excel*: For dataset storage.
+•⁠  ⁠*gdown*: To download the dataset from Google Drive.
+•⁠  ⁠*Flask*: For the web interface.
+•⁠  ⁠*scikit-learn*: For encoding categorical data.
+•⁠  ⁠*VS Code*: For the prototype command line interface.
 
 ## C. System Features
 The system boasts the following features in an effort to effectively meet its intended objectives:
