@@ -23,11 +23,11 @@ The system boasts the following features in an effort to effectively meet its in
 •⁠  ⁠*Comprehensive Interface*: Students are able to freely browse and access the system's pool of features.
 
 ## D. How It Works
-1. **Student Preferences**: Students input their student ID as well as their preferred genres.
-2. **Book Recommendation**: Upon enrollment, the system makes some initial suggestions. Students can continue to request new recommendations after the fact as well.
-3. **Borrowing Books**: Students can borrow books and have a limit of 3 active borrowed books before being blocked. They are allowed to view their accounts so they can stay on top of their deadlines.
-4. **Updating Preferences**: Students can update their preferred genres for new book recommendations.
-5. **Returning Books**: Books can be returned and made available for other students.
+1.⁠ ⁠*Student Preferences*: Students input their student ID as well as their preferred genres.
+2.⁠ ⁠*Book Recommendation*: Upon enrollment, the system makes some initial suggestions. Students can continue to request new recommendations after the fact as well.
+3.⁠ ⁠*Updating Preferences*: Students can update their preferred genres for new book recommendations.
+4.⁠ ⁠*Borrowing Books*: Students can borrow books and have a limit of 3 active borrowed books before being blocked. They are allowed to view their accounts so they can stay on top of their deadlines.
+5.⁠ ⁠*Returning Books*: Books can be returned and made available for other students.
 
 ## E. System Components
 ### 1️. Data Loading and Preprocessing
