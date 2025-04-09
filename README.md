@@ -31,23 +31,22 @@ The system boasts the following features in an effort to effectively meet its in
 
 ## E. System Components
 ### 1️. Data Loading and Preprocessing
-The dataset is loaded from a Google Drive link and contains details about books including title, authors, category, and average ratings. The categories are encoded using `LabelEncoder` from scikit-learn to standardise genre categories.
+The dataset is loaded from a Google Drive link and contains details about books including title, authors, category, and average ratings. The categories are encoded using ⁠ LabelEncoder ⁠ from scikit-learn to standardise genre categories and later decoded to present them in text form in the user interface.
 
 ### 2️. Book Recommendation System
-- Books are sampled based on the student's preferred genres, and the recommendations are evenly distributed across genres.
-- The recommendations are grouped by category and returned in a numbered list.
+•⁠  ⁠Books are sampled based on the student's preferred genres, and the recommendations are evenly distributed across genres. Recommendations are then grouped by category and presented in a numbered list.
 
 ### 3️. Student Account Management
-- Add, update, and delete student profiles.
-- View and manage borrowed books.
-- Track and recommend books based on updated preferences.
+•⁠  ⁠Add, update, and delete student profiles.
+•⁠  ⁠View and manage borrowed books.
+•⁠  ⁠Track and recommend books based on updated preferences.
 
 ### 4️. User Interface
 A simple Flask based web interface allows users to:
-- Add students.
-- View and update student profiles.
-- Borrow and return books.
-- View book recommendations.
+•⁠  ⁠Add students.
+•⁠  ⁠View and update student profiles.
+•⁠  ⁠Borrow and return books.
+•⁠  ⁠View book recommendations.
 
 ## F. Setup Instructions
 1. Clone or download this repository.
